@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+template <typename T>
+class Node {
+public:
+	T memory /*T라고 하는, 구체적으로 정해지지 않은 형태를 저장할 memory라는 변수 만들어줌*/
+	Node* nextnode; /*다음 노드를 가리킬 포인터를 만듦. 여기서 nextNode는 단순 변수!*/
+
+	Node(T memory) : memory(memory), nextNode(nullptr) {}
+	/*1. Node 생성자 선언-T memory에 들어갈 자료형의 타입에 따라 달라짐
+	  2. cf)초기화 리스트->memory,nextNode */
+};
+template <class T>
+class singleLinkedList {
+public:
+
+};
+
+int main() {
+	singleLinkedList<int>* idx = new singleLinkedList<int>;
+	idx->push(1);
+	idx->push(2);
+	idx->push(3);
+	idx->push(4);
+	idx->push(5);
+	idx->show();
+}
