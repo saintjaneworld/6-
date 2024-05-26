@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Node {
+public:
+    T memory; /*T라는 정해지지 않은 자료형을 담을 변수 memory */
+    Node* nextNode; /*다음 노드를 가리키는 포인터 nextNode*/ 
+
+    Node(T memory) : memory(memory), nextNode(nullptr) {}
+    /*노드에 T라는 메모리가 들어갈 수 있도록 생성자 만들어줌*/ 
+};
+
+template <class T>
+class singleLinkedList {
+public:
+    Node<T>* head;/*각각 첫 번째 노드와 끝 노드의 포인터 변수 선언*/
+    Node<T>* tail;
+
+public:
+    singleLinkedList() : head(nullptr), tail(nullptr) {}
+
+    void push(T memory) {
+        Node<T>* newNode = new Node<T>(memory);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode; /*만약 head가 비어 있으면 head와 tail 모두 newNode를 가리키도록 한다.*/
+        }
+        else {
+            tail->nextNode = newNode; /*head가 비지 않았다면 새로이 넣을 것을 tail의 옆에다 위치시킨다.*/
+            tail = newNode; /*그러면 tail 옆에 있는 노드가 이제 새로운 끝 노드, 즉 tail이 될 것이다.*/
+        }
+    }
+
+    void show() {
+        Node<T>* finding = head;/*head를 가리키는 finding이라는 변수를 선언해준다.*/
+        while (finding != nullptr) {/*head가 비지 않은 경우..*/
+            cout << finding->memory << " -> ";/*출력 후 다음 노드로 이동*/
+            finding = finding->nextNode;
+        }
+        
+    }
+
+    ~singleLinkedList() {
+        Node<T>* current = head;
+        while (current != nullptr) {
+            Node<T>* next = current->nextNode;
+            delete current;
+            current = next;
+        }
+        head = nullptr;
+    }
+};
+
+int main() {
+    singleLinkedList<int>* idx = new singleLinkedList<int>;
+    idx->push(1);
+    idx->push(2);
+    idx->push(3);
+    idx->push(4);
+    idx->push(5);
+    idx->show();
+
+    return 0;
+}
